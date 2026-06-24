@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500;1,6..72,600&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:#F3E9D6;}
+img{display:block;max-width:100%;}
+::selection{background:#1A1410;color:#F3E9D6;}
+::placeholder{color:#9b8c73;opacity:1;}
+input,select,textarea,button{font-family:'Archivo',sans-serif;}
+*::-webkit-scrollbar{height:8px;width:8px;}
+*::-webkit-scrollbar-thumb{background:rgba(26,20,16,.25);}
+@keyframes marq{to{transform:translateX(-50%);}}
+[data-nav-links]{display:none!important;}
+[data-burger]{display:inline-flex!important;}
+[data-reserve-btn]{display:none!important;}
+@media(min-width:1040px){
+  [data-nav-links]{display:inline-flex!important;}
+  [data-burger]{display:none!important;}
+  [data-reserve-btn]{display:inline-flex!important;}
+}
+@media(max-width:880px){
+  [data-hero-grid],[data-feature-grid],[data-news],[data-foot-cols],[data-reserve-grid],[data-contact-grid],[data-about-grid],[data-visit-grid],[data-faq-grid]{grid-template-columns:1fr!important;}
+  [data-metric]:first-child{border-left:0!important;}
+}
+@media(max-width:600px){
+  [data-field-grid]{grid-template-columns:1fr!important;}
+}
+</style>
+</helmet>
+
+<div style="font-family:'Archivo',sans-serif;color:#1A1410;background:#F3E9D6;min-height:100vh;padding-top:74px;overflow-x:hidden;">
+
+  <!-- ===================== NAV ===================== -->
+  <nav style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:11px clamp(18px,4vw,46px);background:#F3E9D6;border-bottom:2px solid #1A1410;">
+    <div onClick="{{ goHome }}" style="display:inline-flex;align-items:center;gap:13px;cursor:pointer;">
+      <img src="assets/brand/logo-transparent.png" alt="Maandeeq" style="width:50px;height:50px;border-radius:50%;object-fit:contain;" />
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span style="font-weight:900;font-stretch:118%;font-size:23px;letter-spacing:.02em;">MAANDEEQ</span>
+        <span style="font-size:8.5px;font-weight:700;letter-spacing:.34em;color:#9E3F1E;margin-top:4px;">RESTAURANT · SOMAL</span>
+      </span>
+    </div>
+    <div style="display:none;align-items:center;gap:22px;" data-nav-links="">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <span onClick="{{ n.onClick }}" style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:4px 0;border-bottom:2px solid {{ n.underline }};color:{{ n.color }};">{{ n.label }}</span>
+      </sc-for>
+    </div>
+    <div style="display:inline-flex;align-items:center;gap:10px;">
+      <button onClick="{{ openCart }}" style="position:relative;display:inline-flex;align-items:center;gap:8px;padding:10px 15px;background:transparent;color:#1A1410;border:2px solid #1A1410;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">
+        Basket
+        <span style="min-width:22px;height:22px;padding:0 6px;border-radius:0;background:#C0532B;color:#FBF5E8;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;">{{ cartCount }}</span>
+      </button>
+      <button onClick="{{ goReserve }}" style="display:none;align-items:center;padding:12px 18px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:3px 3px 0 #1A1410;" style-hover="background:#9E3F1E;" data-reserve-btn="">Book a table</button>
+      <button onClick="{{ openSheet }}" style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:46px;height:46px;background:transparent;border:2px solid #1A1410;cursor:pointer;" data-burger="">
+        <span style="width:18px;height:2px;background:#1A1410;display:block;"></span>
+        <span style="width:18px;height:2px;background:#1A1410;display:block;"></span>
+        <span style="width:12px;height:2px;background:#1A1410;display:block;"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== HOME ===================== -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Home">
+
+    <!-- HERO -->
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(30px,5vw,64px) clamp(18px,4vw,46px) clamp(20px,3vw,36px);">
+      <div style="display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(28px,4vw,56px);align-items:stretch;" data-hero-grid="">
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <div style="display:inline-flex;align-self:flex-start;align-items:center;gap:9px;border:2px solid #1A1410;padding:7px 13px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;">
+            <span style="color:#C0532B;font-size:13px;">★</span> Authentic Somali Kitchen · Woolwich
+          </div>
+          <h1 style="font-weight:900;font-stretch:122%;font-size:clamp(40px,9vw,108px);line-height:0.92;letter-spacing:-.02em;margin:22px 0 0;text-transform:uppercase;">
+            A Table<br />Set For<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;letter-spacing:-.01em;">everyone.</em>
+          </h1>
+          <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.6;color:#4A3F33;max-width:44ch;margin:26px 0 0;">
+            Generous platters, slow-cooked lamb, fresh sabayaad and aromatic shaah — the flavours of the Horn of Africa, in the heart of South East London.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;">
+            <button onClick="{{ goMenu }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 26px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:4px 4px 0 #C0532B;" style-hover="box-shadow:0 0 0 #C0532B;transform:translate(2px,2px);">View the menu →</button>
+            <button onClick="{{ goReserve }}" style="display:inline-flex;align-items:center;padding:15px 26px;background:transparent;color:#1A1410;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">Book a table</button>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:0;margin-top:38px;border-top:2px solid #1A1410;">
+            <div style="padding:14px 18px 0 0;font-size:12px;letter-spacing:.03em;color:#4A3F33;"><b style="color:#1A1410;font-weight:800;">HALAL</b> · always</div>
+            <div style="padding:14px 18px 0;border-left:2px solid #1A1410;font-size:12px;letter-spacing:.03em;color:#4A3F33;"><b style="color:#1A1410;font-weight:800;">DINE IN</b> · takeaway · catering</div>
+            <div style="padding:14px 0 0 18px;border-left:2px solid #1A1410;font-size:12px;letter-spacing:.03em;color:#4A3F33;"><b style="color:#1A1410;font-weight:800;">PLATTERS</b> from £29.99</div>
+          </div>
+        </div>
+        <div style="position:relative;border:2px solid #1A1410;box-shadow:8px 8px 0 #1A1410;background:#E7D9bf;min-height:380px;overflow:hidden;">
+          <img src="assets/food-platter.webp" alt="A generous Somali family platter — lamb, suqaar, sabayaad and salad" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
+          <div style="position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:9px;background:#F3E9D6;border:2px solid #1A1410;padding:9px 14px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;">
+            <span style="width:9px;height:9px;border-radius:50%;background:#2f8a4f;box-shadow:0 0 0 3px rgba(47,138,79,.25);"></span> Open now · until 11pm
+          </div>
+          <div style="position:absolute;right:-2px;top:-2px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;padding:8px 13px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;">★ Est. 2024</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRIP -->
+    <sc-if value="{{ showStrip }}" hint-placeholder-val="{{ true }}">
+    <div style="border-top:2px solid #1A1410;border-bottom:2px solid #1A1410;background:#1A1410;overflow:hidden;padding:13px 0;">
+      <div style="display:flex;width:max-content;animation:marq 34s linear infinite;">
+        <sc-for list="{{ stripWords }}" as="w" hint-placeholder-count="8">
+          <span style="display:inline-flex;align-items:center;gap:24px;padding-inline:24px;font-family:'Newsreader',serif;font-style:italic;font-size:clamp(20px,2.4vw,30px);color:#F3E9D6;white-space:nowrap;">{{ w }}<span style="color:#C0532B;font-style:normal;">★</span></span>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- SIGNATURES -->
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(18px,4vw,46px) clamp(30px,4vw,56px);">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #1A1410;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;"><span style="color:#C0532B;">★</span> Signatures</div>
+          <h2 style="font-weight:900;font-stretch:118%;font-size:clamp(34px,5vw,60px);line-height:0.95;letter-spacing:-.01em;margin:16px 0 0;text-transform:uppercase;">What people<br />come back for.</h2>
+        </div>
+        <button onClick="{{ goMenu }}" style="background:transparent;border:0;border-bottom:2px solid #1A1410;padding:6px 0;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:#1A1410;" style-hover="color:#C0532B;border-color:#C0532B;">Full menu →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:clamp(34px,4vw,52px);">
+        <article style="display:flex;flex-direction:column;border:2px solid #1A1410;background:#FBF5E8;">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-bottom:2px solid #1A1410;background:#E7D9bf;">
+            <img src="assets/food-platter.webp" alt="Haniid Lamb" style="width:100%;height:100%;object-fit:cover;object-position:center 35%;" />
+            <span style="position:absolute;top:0;left:0;background:#1A1410;color:#F3E9D6;font-family:'Newsreader',serif;font-style:italic;font-size:18px;padding:4px 11px;">01</span>
+          </div>
+          <div style="padding:15px 16px 17px;display:flex;flex-direction:column;flex:1;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;"><span style="font-weight:800;font-size:18px;letter-spacing:-.01em;">Haniid Lamb</span><span style="font-family:'Newsreader',serif;font-weight:600;font-size:17px;color:#9E3F1E;white-space:nowrap;">{{ sig0.priceLabel }}</span></div>
+            <p style="color:#6b5d4b;font-size:13px;line-height:1.5;margin:7px 0 0;">Slow-cooked shank, rich Somali spice.</p>
+            <button onClick="{{ sig0.onAdd }}" style="margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:9px 15px;border:2px solid #1A1410;background:{{ sig0.addBg }};color:{{ sig0.addColor }};cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">{{ sig0.addLabel }}</button>
+          </div>
+        </article>
+        <article style="display:flex;flex-direction:column;border:2px solid #1A1410;background:#FBF5E8;">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-bottom:2px solid #1A1410;background:#E7D9bf;">
+            <img src="assets/food-suqaar.webp" alt="Beef Suqaar" style="width:100%;height:100%;object-fit:cover;object-position:center 55%;" />
+            <span style="position:absolute;top:0;left:0;background:#1A1410;color:#F3E9D6;font-family:'Newsreader',serif;font-style:italic;font-size:18px;padding:4px 11px;">02</span>
+          </div>
+          <div style="padding:15px 16px 17px;display:flex;flex-direction:column;flex:1;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;"><span style="font-weight:800;font-size:18px;letter-spacing:-.01em;">Beef Suqaar</span><span style="font-family:'Newsreader',serif;font-weight:600;font-size:17px;color:#9E3F1E;white-space:nowrap;">{{ sig1.priceLabel }}</span></div>
+            <p style="color:#6b5d4b;font-size:13px;line-height:1.5;margin:7px 0 0;">Beef, peppers, onions, potatoes.</p>
+            <button onClick="{{ sig1.onAdd }}" style="margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:9px 15px;border:2px solid #1A1410;background:{{ sig1.addBg }};color:{{ sig1.addColor }};cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">{{ sig1.addLabel }}</button>
+          </div>
+        </article>
+        <article style="display:flex;flex-direction:column;border:2px solid #1A1410;background:#FBF5E8;">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-bottom:2px solid #1A1410;background:#E7D9bf;">
+            <img src="assets/food-breakfast.webp" alt="Sabayaad Breakfast" style="width:100%;height:100%;object-fit:cover;object-position:center 50%;" />
+            <span style="position:absolute;top:0;left:0;background:#1A1410;color:#F3E9D6;font-family:'Newsreader',serif;font-style:italic;font-size:18px;padding:4px 11px;">03</span>
+          </div>
+          <div style="padding:15px 16px 17px;display:flex;flex-direction:column;flex:1;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;"><span style="font-weight:800;font-size:18px;letter-spacing:-.01em;">Sabayaad Breakfast</span><span style="font-family:'Newsreader',serif;font-weight:600;font-size:17px;color:#9E3F1E;white-space:nowrap;">{{ sig2.priceLabel }}</span></div>
+            <p style="color:#6b5d4b;font-size:13px;line-height:1.5;margin:7px 0 0;">Flaky bread, eggs, honey, sambusa.</p>
+            <button onClick="{{ sig2.onAdd }}" style="margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:9px 15px;border:2px solid #1A1410;background:{{ sig2.addBg }};color:{{ sig2.addColor }};cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">{{ sig2.addLabel }}</button>
+          </div>
+        </article>
+        <article style="display:flex;flex-direction:column;border:2px solid #1A1410;background:#FBF5E8;">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;border-bottom:2px solid #1A1410;background:#E7D9bf;">
+            <img src="assets/food-drinks.webp" alt="Somali Tea" style="width:100%;height:100%;object-fit:cover;object-position:center 45%;" />
+            <span style="position:absolute;top:0;left:0;background:#1A1410;color:#F3E9D6;font-family:'Newsreader',serif;font-style:italic;font-size:18px;padding:4px 11px;">04</span>
+          </div>
+          <div style="padding:15px 16px 17px;display:flex;flex-direction:column;flex:1;">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;"><span style="font-weight:800;font-size:18px;letter-spacing:-.01em;">Somali Tea</span><span style="font-family:'Newsreader',serif;font-weight:600;font-size:17px;color:#9E3F1E;white-space:nowrap;">{{ sig3.priceLabel }}</span></div>
+            <p style="color:#6b5d4b;font-size:13px;line-height:1.5;margin:7px 0 0;">Aromatic spiced black tea.</p>
+            <button onClick="{{ sig3.onAdd }}" style="margin-top:14px;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:9px 15px;border:2px solid #1A1410;background:{{ sig3.addBg }};color:{{ sig3.addColor }};cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">{{ sig3.addLabel }}</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PLATTERS FEATURE -->
+    <section style="border-top:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(18px,4vw,46px);display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(30px,5vw,60px);align-items:center;" data-feature-grid="">
+        <div style="position:relative;border:2px solid #1A1410;box-shadow:8px 8px 0 #C0532B;aspect-ratio:5/6;overflow:hidden;background:#E7D9bf;">
+          <img src="assets/food-platter.webp" alt="Maandeeq family platter for sharing" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #1A1410;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;"><span style="color:#C0532B;">★</span> Family Platters</div>
+          <h2 style="font-weight:900;font-stretch:118%;font-size:clamp(32px,4.6vw,58px);line-height:0.95;letter-spacing:-.01em;margin:16px 0 0;text-transform:uppercase;">Built for sharing.<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">Generous by default.</em></h2>
+          <p style="font-size:16px;line-height:1.6;color:#4A3F33;max-width:46ch;margin:18px 0 0;">Lamb shank, chicken steak and beef suqaar over fragrant bariis or baasto, with fresh salad. Made for weekends, guests and celebrations.</p>
+          <ul style="list-style:none;margin:26px 0 0;padding:0;">
+            <sc-for list="{{ platters }}" as="p" hint-placeholder-count="4">
+              <li style="display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:16px 0;border-top:2px solid #1A1410;">
+                <span style="font-family:'Newsreader',serif;font-style:italic;font-size:18px;color:#9E3F1E;">{{ p.no }}</span>
+                <span style="font-weight:800;font-size:18px;">{{ p.name }}<small style="display:block;font-weight:400;font-size:12.5px;color:#6b5d4b;margin-top:3px;">{{ p.desc }}</small></span>
+                <span style="font-family:'Newsreader',serif;font-weight:600;font-size:18px;">{{ p.priceLabel }}</span>
+              </li>
+            </sc-for>
+          </ul>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;">
+            <button onClick="{{ addBigPlatter }}" style="display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:3px 3px 0 #1A1410;" style-hover="background:#9E3F1E;">＋ Add the 4–5 platter</button>
+            <button onClick="{{ goCatering }}" style="display:inline-flex;align-items:center;padding:14px 22px;background:transparent;color:#1A1410;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">Catering & events</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATERING BAND -->
+    <section style="border-top:2px solid #1A1410;background:#1A1410;color:#F3E9D6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(18px,4vw,46px);display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(30px,5vw,60px);align-items:center;" data-feature-grid="">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #C0532B;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E8B96a;"><span style="color:#C0532B;">★</span> Off-site Catering · Greater London</div>
+          <h2 style="font-weight:900;font-stretch:118%;font-size:clamp(32px,4.6vw,58px);line-height:0.95;letter-spacing:-.01em;margin:16px 0 0;text-transform:uppercase;">A feast that <em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#E8B96a;">travels.</em></h2>
+          <p style="font-size:16px;line-height:1.6;color:rgba(243,233,214,.7);max-width:48ch;margin:18px 0 0;">Slow-roasted lamb on a sea of fragrant bariis, sambusas folded by hand that morning, basbaas in glass jars, shaah by the urn — delivered hot, set down with care.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:30px;border:2px solid rgba(243,233,214,.25);">
+            <sc-for list="{{ cateringMetrics }}" as="m" hint-placeholder-count="3">
+              <div style="padding:18px 16px;border-left:2px solid rgba(243,233,214,.25);" data-metric="">
+                <strong style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:clamp(24px,3vw,34px);color:#E8B96a;">{{ m.big }}</strong>
+                <span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,233,214,.55);margin-top:4px;display:block;">{{ m.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;">
+            <sc-for list="{{ cateringOccasions }}" as="o" hint-placeholder-count="6">
+              <span style="font-size:12px;font-weight:700;letter-spacing:.04em;padding:8px 14px;border:2px solid rgba(243,233,214,.28);color:rgba(243,233,214,.85);text-transform:uppercase;">{{ o }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;">
+            <button onClick="{{ goCatering }}" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:#C0532B;color:#FBF5E8;border:2px solid #C0532B;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#9E3F1E;border-color:#9E3F1E;">Request a quote →</button>
+            <button onClick="{{ cateringWA }}" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:transparent;color:#F3E9D6;border:2px solid rgba(243,233,214,.5);font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#F3E9D6;color:#1A1410;border-color:#F3E9D6;">Ask on WhatsApp</button>
+          </div>
+        </div>
+        <div style="position:relative;border:2px solid #C0532B;box-shadow:8px 8px 0 #C0532B;aspect-ratio:5/6;overflow:hidden;background:#221d18;">
+          <img src="assets/food-platter.webp" alt="A Maandeeq catering platter — whole roasted lamb on bariis with sides" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS TEASER -->
+    <section style="border-top:2px solid #1A1410;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(18px,4vw,46px);">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+          <div>
+            <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #1A1410;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;"><span style="color:#C0532B;">★</span> Word of mouth</div>
+            <h2 style="font-weight:900;font-stretch:118%;font-size:clamp(32px,4.6vw,56px);line-height:0.95;letter-spacing:-.01em;margin:16px 0 0;text-transform:uppercase;">Loved by the<br />neighbourhood.</h2>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:14px;border:2px solid #1A1410;padding:14px 20px;background:#FBF5E8;box-shadow:4px 4px 0 #1A1410;">
+            <span style="font-family:'Newsreader',serif;font-weight:600;font-size:48px;line-height:1;">4.9</span>
+            <div><div style="color:#C0532B;font-size:14px;letter-spacing:2px;">★★★★★</div><div style="color:#6b5d4b;font-size:12px;margin-top:4px;">412 reviews · Google & WhatsApp</div></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:clamp(34px,4vw,52px);">
+          <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+            <figure style="margin:0;border:2px solid #1A1410;background:#FBF5E8;padding:22px 20px;display:flex;flex-direction:column;gap:14px;">
+              <div style="color:#C0532B;font-size:13px;letter-spacing:2px;">★★★★★</div>
+              <blockquote style="margin:0;font-family:'Newsreader',serif;font-size:18px;line-height:1.4;color:#1A1410;">“{{ r.q }}”</blockquote>
+              <figcaption style="margin-top:auto;font-size:12.5px;color:#6b5d4b;"><b style="color:#1A1410;font-weight:800;">{{ r.a }}</b> · via {{ r.src }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY TEASER -->
+    <section style="border-top:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(18px,4vw,46px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,60px);align-items:center;" data-feature-grid="">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #1A1410;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;"><span style="color:#C0532B;">★</span> Our Story</div>
+          <p style="font-family:'Newsreader',serif;font-size:clamp(24px,3.2vw,38px);line-height:1.18;margin:18px 0 0;color:#1A1410;"><em style="color:#9E3F1E;">Maandeeq</em> — the white she-camel of Somali poetry — is a symbol of nourishment and continuity. That's the job of a kitchen: to feed, to gather, to carry a culture forward.</p>
+          <button onClick="{{ goAbout }}" style="margin-top:24px;display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#000;">Read our story →</button>
+        </div>
+        <div style="position:relative;border:2px solid #1A1410;box-shadow:8px 8px 0 #1A1410;aspect-ratio:4/5;overflow:hidden;background:#E7D9bf;">
+          <img src="assets/food-breakfast.webp" alt="A Somali breakfast spread — sabayaad, eggs, honey and sambusa" style="width:100%;height:100%;object-fit:cover;" />
+          <span style="position:absolute;right:14px;top:14px;width:78px;height:78px;border-radius:50%;background:#F3E9D6;border:2px solid #1A1410;display:inline-flex;align-items:center;justify-content:center;"><img src="assets/brand/logo-transparent.png" alt="Maandeeq" style="width:74%;height:74%;object-fit:contain;" /></span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </sc-if>
+
+  <!-- ===================== MENU PAGE ===================== -->
+  <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Menu">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;" style-hover="color:#C0532B;">Home</span> / <span style="color:#1A1410;">Menu</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Eat well,<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">eat together.</em></h1>
+        <p style="font-size:16px;line-height:1.6;color:#4A3F33;max-width:50ch;margin:18px 0 0;">Tap <b style="color:#1A1410;">Add</b> to build a basket, then order on WhatsApp in one tap. Every dish is 100% halal.</p>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(28px,3.5vw,46px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:flex;gap:0;border:2px solid #1A1410;overflow-x:auto;">
+        <sc-for list="{{ menuTabs }}" as="t" hint-placeholder-count="5">
+          <button onClick="{{ t.onClick }}" style="border:0;border-right:2px solid #1A1410;padding:14px 20px;font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;cursor:pointer;background:{{ t.bg }};color:{{ t.color }};">{{ t.title }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;">
+        <button onClick="{{ filterAll.onClick }}" style="border:2px solid #1A1410;padding:8px 15px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;background:{{ filterAll.bg }};color:{{ filterAll.color }};">All</button>
+        <button onClick="{{ filterPopular.onClick }}" style="border:2px solid #1A1410;padding:8px 15px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;background:{{ filterPopular.bg }};color:{{ filterPopular.color }};">★ Most loved</button>
+        <button onClick="{{ filterVeg.onClick }}" style="border:2px solid #1A1410;padding:8px 15px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;background:{{ filterVeg.bg }};color:{{ filterVeg.color }};">Veggie</button>
+      </div>
+      <sc-if value="{{ menuNote }}" hint-placeholder-val="{{ false }}">
+        <p style="font-family:'Newsreader',serif;font-style:italic;font-size:15px;color:#9E3F1E;margin:20px 0 0;">{{ menuNote }}</p>
+      </sc-if>
+      <ul style="list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));column-gap:56px;">
+        <sc-for list="{{ menuItems }}" as="it" hint-placeholder-count="5">
+          <li style="display:grid;grid-template-columns:1fr auto;gap:5px 14px;align-items:baseline;padding:20px 0;border-bottom:2px solid rgba(26,20,16,.12);">
+            <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;">
+              <span style="font-weight:800;font-size:19px;letter-spacing:-.01em;">{{ it.name }}</span>
+              <sc-if value="{{ it.popular }}" hint-placeholder-val="{{ false }}"><span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;background:#C0532B;color:#FBF5E8;">★ Loved</span></sc-if>
+              <sc-if value="{{ it.veg }}" hint-placeholder-val="{{ false }}"><span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:2px solid #4f7340;color:#4f7340;">Veggie</span></sc-if>
+              <span style="flex:1;min-width:18px;border-bottom:2px dotted rgba(26,20,16,.28);transform:translateY(-5px);"></span>
+            </div>
+            <span style="font-family:'Newsreader',serif;font-weight:600;font-size:18px;font-variant-numeric:tabular-nums;">{{ it.priceLabel }}</span>
+            <p style="grid-column:1 / -1;color:#6b5d4b;font-size:13.5px;line-height:1.5;max-width:50ch;margin:4px 0 0;">{{ it.desc }}</p>
+            <div style="grid-column:1 / -1;margin-top:12px;">
+              <sc-if value="{{ it.addOnly }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ it.onAdd }}" style="display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:9px 15px;border:2px solid #1A1410;background:transparent;cursor:pointer;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">＋ Add</button>
+              </sc-if>
+              <sc-if value="{{ it.hasQty }}" hint-placeholder-val="{{ false }}">
+                <div style="display:inline-flex;align-items:center;border:2px solid #1A1410;">
+                  <button onClick="{{ it.onDec }}" style="width:34px;height:34px;border:0;background:transparent;font-size:18px;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">−</button>
+                  <span style="min-width:30px;text-align:center;font-weight:800;font-size:14px;">{{ it.qty }}</span>
+                  <button onClick="{{ it.onInc }}" style="width:34px;height:34px;border:0;background:transparent;font-size:18px;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">＋</button>
+                </div>
+              </sc-if>
+            </div>
+          </li>
+        </sc-for>
+      </ul>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:40px;padding-top:30px;border-top:2px solid #1A1410;">
+        <button onClick="{{ openCart }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 26px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:4px 4px 0 #1A1410;" style-hover="background:#9E3F1E;">View basket ({{ cartCount }}) →</button>
+        <button onClick="{{ goReserve }}" style="display:inline-flex;align-items:center;padding:15px 26px;background:transparent;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">Book a table</button>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== ORDER PAGE ===================== -->
+  <sc-if value="{{ isOrder }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Order">
+    <section style="border-bottom:2px solid #1A1410;background:#1A1410;color:#F3E9D6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,233,214,.6);"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#E8B96a;">Order Online</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Order <em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#E8B96a;">online.</em></h1>
+        <p style="font-size:16px;line-height:1.6;color:rgba(243,233,214,.7);max-width:50ch;margin:18px 0 0;">Build your basket below, then check out on WhatsApp — pickup across Woolwich or short-distance delivery. Usually ready in 20–30 minutes.</p>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <sc-for list="{{ menuGroups }}" as="g" hint-placeholder-count="3">
+        <div style="margin-bottom:clamp(40px,5vw,64px);">
+          <div style="display:flex;align-items:baseline;gap:14px;border-bottom:2px solid #1A1410;padding-bottom:12px;">
+            <h2 style="font-weight:900;font-stretch:115%;font-size:clamp(22px,3vw,32px);text-transform:uppercase;margin:0;">{{ g.title }}</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:20px;">
+            <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;border:2px solid #1A1410;background:#FBF5E8;padding:16px;">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;">
+                  <span style="font-weight:800;font-size:16px;line-height:1.2;">{{ it.name }}</span>
+                  <span style="font-family:'Newsreader',serif;font-weight:600;font-size:16px;color:#9E3F1E;white-space:nowrap;">{{ it.priceLabel }}</span>
+                </div>
+                <p style="color:#6b5d4b;font-size:12.5px;line-height:1.45;margin:6px 0 0;flex:1;">{{ it.desc }}</p>
+                <div style="margin-top:14px;">
+                  <sc-if value="{{ it.addOnly }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ it.onAdd }}" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:10px;border:2px solid #1A1410;background:transparent;cursor:pointer;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">＋ Add to basket</button>
+                  </sc-if>
+                  <sc-if value="{{ it.hasQty }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:center;justify-content:space-between;border:2px solid #C0532B;background:#C0532B;color:#FBF5E8;">
+                      <button onClick="{{ it.onDec }}" style="width:38px;height:38px;border:0;background:transparent;color:inherit;font-size:18px;cursor:pointer;">−</button>
+                      <span style="font-weight:800;font-size:14px;">{{ it.qty }} in basket</span>
+                      <button onClick="{{ it.onInc }}" style="width:38px;height:38px;border:0;background:transparent;color:inherit;font-size:18px;cursor:pointer;">＋</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <div style="position:sticky;bottom:18px;display:flex;justify-content:center;">
+        <button onClick="{{ openCart }}" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:14px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:5px 5px 0 #C0532B;" style-hover="background:#000;">Basket · {{ cartCount }} items — {{ cartTotal }} →</button>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== RESERVE PAGE ===================== -->
+  <sc-if value="{{ isReserve }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Reserve">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#1A1410;">Reservations</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Walk in, or<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">book ahead.</em></h1>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,64px);align-items:start;" data-reserve-grid="">
+        <div>
+          <p style="font-size:17px;line-height:1.6;color:#4A3F33;max-width:46ch;">Reserve a table in seconds, or tell us about a bigger occasion — nikahs, aqiqahs, Friday lunches and community events, scaled from 10 to 200.</p>
+          <ul style="list-style:none;margin:30px 0 0;padding:0;">
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:18px 0;border-top:2px solid #1A1410;"><span style="color:#C0532B;font-size:16px;">★</span><div><b style="font-weight:800;">Open 7 days</b><span style="display:block;color:#6b5d4b;font-size:13.5px;margin-top:2px;">8:30am till late, every day of the week.</span></div></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:18px 0;border-top:2px solid rgba(26,20,16,.12);"><span style="color:#C0532B;font-size:16px;">★</span><div><b style="font-weight:800;">Tables 2–8</b><span style="display:block;color:#6b5d4b;font-size:13.5px;margin-top:2px;">Larger groups welcome via catering.</span></div></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:18px 0;border-top:2px solid rgba(26,20,16,.12);"><span style="color:#C0532B;font-size:16px;">★</span><div><b style="font-weight:800;">Pickup & delivery</b><span style="display:block;color:#6b5d4b;font-size:13.5px;margin-top:2px;">Across Woolwich & South East London.</span></div></li>
+            <li style="display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;padding:18px 0;border-top:2px solid rgba(26,20,16,.12);border-bottom:2px solid rgba(26,20,16,.12);"><span style="color:#C0532B;font-size:16px;">★</span><div><b style="font-weight:800;">Halal, always</b><span style="display:block;color:#6b5d4b;font-size:13.5px;margin-top:2px;">Verified London suppliers.</span></div></li>
+          </ul>
+        </div>
+        <div style="border:2px solid #1A1410;background:#FBF5E8;box-shadow:8px 8px 0 #1A1410;padding:clamp(22px,3vw,34px);">
+          <sc-if value="{{ resNotDone }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submitRes }}">
+            <h3 style="font-weight:900;font-stretch:115%;font-size:24px;margin:0;text-transform:uppercase;">Reserve a table</h3>
+            <p style="color:#6b5d4b;font-size:13.5px;margin:6px 0 22px;">Tables for 2–8. For 10+ guests, please use catering.</p>
+            <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Party size</label>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;margin:8px 0 18px;">
+              <sc-for list="{{ partyChips }}" as="c" hint-placeholder-count="7">
+                <button type="button" onClick="{{ c.onClick }}" style="border:2px solid #1A1410;padding:9px 15px;font-size:13px;font-weight:800;cursor:pointer;background:{{ c.bg }};color:{{ c.color }};">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <div data-field-grid="" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Date</label>
+                <input type="date" min="{{ today }}" value="{{ resDate }}" onChange="{{ onResDate }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;" />
+                <sc-if value="{{ hasErrDate }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;color:#c0492f;font-weight:700;">{{ errDate }}</span></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Time</label>
+                <select value="{{ resTime }}" onChange="{{ onResTime }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;">
+                  <option value="">Select…</option>
+                  <sc-for list="{{ times }}" as="t" hint-placeholder-count="7"><option value="{{ t }}">{{ t }}</option></sc-for>
+                </select>
+                <sc-if value="{{ hasErrTime }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;color:#c0492f;font-weight:700;">{{ errTime }}</span></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Name</label>
+                <input type="text" placeholder="Your name" value="{{ resName }}" onChange="{{ onResName }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;" />
+                <sc-if value="{{ hasErrName }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;color:#c0492f;font-weight:700;">{{ errName }}</span></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;">
+                <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Phone</label>
+                <input type="tel" placeholder="07…" value="{{ resPhone }}" onChange="{{ onResPhone }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;" />
+                <sc-if value="{{ hasErrPhone }}" hint-placeholder-val="{{ false }}"><span style="font-size:11.5px;color:#c0492f;font-weight:700;">{{ errPhone }}</span></sc-if>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;grid-column:1 / -1;">
+                <label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Notes <span style="text-transform:none;letter-spacing:0;color:#b4aca1;">(optional)</span></label>
+                <textarea rows="2" placeholder="High chair, allergies, celebration…" value="{{ resNotes }}" onChange="{{ onResNotes }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;resize:vertical;" style-focus="border-color:#C0532B;outline:none;"></textarea>
+              </div>
+            </div>
+            <button type="submit" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px;margin-top:18px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#000;">Request table →</button>
+            <p style="color:#6b5d4b;font-size:12.5px;margin:12px 0 0;text-align:center;">We'll confirm by text — usually within the hour.</p>
+          </form>
+          </sc-if>
+          <sc-if value="{{ resDone }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center;padding:14px 0 6px;">
+            <span style="width:62px;height:62px;border:2px solid #1A1410;background:#C0532B;color:#FBF5E8;display:inline-flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:14px;">✓</span>
+            <h4 style="font-weight:900;font-stretch:115%;font-size:24px;margin:0 0 8px;text-transform:uppercase;">Table requested</h4>
+            <p style="color:#6b5d4b;font-size:14px;margin:0 auto;max-width:38ch;">Thanks, {{ resFirstName }}. We'll confirm your table for {{ resParty }} on {{ resDate }} at {{ resTime }} by text shortly. Soo dhowow.</p>
+            <button onClick="{{ resetRes }}" style="margin-top:18px;padding:12px 20px;background:transparent;border:2px solid #1A1410;font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">Book another</button>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== CATERING PAGE ===================== -->
+  <sc-if value="{{ isCatering }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Catering">
+    <section style="border-bottom:2px solid #1A1410;background:#1A1410;color:#F3E9D6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(18px,4vw,46px);display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(30px,5vw,60px);align-items:center;" data-feature-grid="">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,233,214,.6);"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#E8B96a;">Catering</span></div>
+          <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6vw,82px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">A feast that <em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#E8B96a;">travels.</em></h1>
+          <p style="font-size:16px;line-height:1.6;color:rgba(243,233,214,.7);max-width:48ch;margin:18px 0 0;">Slow-roasted lamb on a sea of fragrant bariis, sambusas folded by hand that morning, basbaas in glass jars, shaah by the urn — delivered hot, set down with care.</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:30px;border:2px solid rgba(243,233,214,.25);">
+            <sc-for list="{{ cateringMetrics }}" as="m" hint-placeholder-count="3">
+              <div style="padding:18px 16px;border-left:2px solid rgba(243,233,214,.25);" data-metric=""><strong style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:clamp(24px,3vw,34px);color:#E8B96a;">{{ m.big }}</strong><span style="font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(243,233,214,.55);margin-top:4px;display:block;">{{ m.label }}</span></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;">
+            <button onClick="{{ cateringWA }}" style="display:inline-flex;align-items:center;gap:8px;padding:14px 24px;background:#C0532B;color:#FBF5E8;border:2px solid #C0532B;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#9E3F1E;border-color:#9E3F1E;">Ask on WhatsApp →</button>
+            <button onClick="{{ goReserve }}" style="display:inline-flex;align-items:center;padding:14px 24px;background:transparent;color:#F3E9D6;border:2px solid rgba(243,233,214,.5);font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#F3E9D6;color:#1A1410;">Request a quote</button>
+          </div>
+        </div>
+        <div style="position:relative;border:2px solid #C0532B;box-shadow:8px 8px 0 #C0532B;aspect-ratio:4/5;overflow:hidden;background:#221d18;"><img src="assets/food-platter.webp" alt="A Maandeeq catering platter — whole roasted lamb on bariis with sides" style="width:100%;height:100%;object-fit:cover;" /></div>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,100px) clamp(18px,4vw,46px);">
+      <div style="display:inline-flex;align-items:center;gap:9px;border:2px solid #1A1410;padding:6px 12px;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;"><span style="color:#C0532B;">★</span> Occasions we cater</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;">
+        <sc-for list="{{ cateringOccasions }}" as="o" hint-placeholder-count="6">
+          <span style="font-size:14px;font-weight:800;letter-spacing:.03em;padding:11px 18px;border:2px solid #1A1410;background:#FBF5E8;text-transform:uppercase;">{{ o }}</span>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px;">
+        <div style="border:2px solid #1A1410;background:#FBF5E8;padding:26px 22px;"><span style="font-family:'Newsreader',serif;font-style:italic;font-size:34px;color:#9E3F1E;">01</span><h3 style="font-weight:900;font-stretch:112%;font-size:20px;margin:10px 0 6px;text-transform:uppercase;">Tell us the plan</h3><p style="color:#6b5d4b;font-size:14px;line-height:1.55;margin:0;">Occasion, date, headcount and postcode — a quick WhatsApp message is all it takes.</p></div>
+        <div style="border:2px solid #1A1410;background:#FBF5E8;padding:26px 22px;"><span style="font-family:'Newsreader',serif;font-style:italic;font-size:34px;color:#9E3F1E;">02</span><h3 style="font-weight:900;font-stretch:112%;font-size:20px;margin:10px 0 6px;text-transform:uppercase;">We build the menu</h3><p style="color:#6b5d4b;font-size:14px;line-height:1.55;margin:0;">A tailored spread of platters, sides, sambusas and shaah, priced from £18 a head.</p></div>
+        <div style="border:2px solid #1A1410;background:#FBF5E8;padding:26px 22px;"><span style="font-family:'Newsreader',serif;font-style:italic;font-size:34px;color:#9E3F1E;">03</span><h3 style="font-weight:900;font-stretch:112%;font-size:20px;margin:10px 0 6px;text-transform:uppercase;">Delivered hot</h3><p style="color:#6b5d4b;font-size:14px;line-height:1.55;margin:0;">Set down with care, on time, ready to serve — across Greater London.</p></div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== ABOUT PAGE ===================== -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="About">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#1A1410;">About Us</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Our <em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">story.</em></h1>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,64px);align-items:center;" data-about-grid="">
+        <div>
+          <p style="font-family:'Newsreader',serif;font-size:clamp(24px,3.2vw,38px);line-height:1.18;margin:0;color:#1A1410;"><em style="color:#9E3F1E;">Maandeeq</em> — the white she-camel of Somali poetry — is a symbol of nourishment and continuity. That's the job of a kitchen: to feed, to gather, to carry a culture forward.</p>
+          <p style="color:#4A3F33;font-size:16px;line-height:1.65;margin:24px 0 0;max-width:50ch;">Our cooks are aunties, uncles and friends from across the Somali diaspora. Our butchers and spice shops are the ones London families have trusted for years. Our table is for you, your kids, your cousin's nikah — here in Woolwich.</p>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:34px;border:2px solid #1A1410;">
+            <div style="padding:20px 18px;border-right:2px solid #1A1410;border-bottom:2px solid #1A1410;"><b style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:28px;color:#9E3F1E;">2024</b><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b5d4b;margin-top:4px;display:block;">Established</span></div>
+            <div style="padding:20px 18px;border-bottom:2px solid #1A1410;"><b style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:28px;color:#9E3F1E;">Daily</b><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b5d4b;margin-top:4px;display:block;">Fresh sabayaad</span></div>
+            <div style="padding:20px 18px;border-right:2px solid #1A1410;"><b style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:28px;color:#9E3F1E;">7 days</b><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b5d4b;margin-top:4px;display:block;">Open weekly</span></div>
+            <div style="padding:20px 18px;"><b style="display:block;font-family:'Newsreader',serif;font-weight:600;font-size:28px;color:#9E3F1E;">100%</b><span style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b5d4b;margin-top:4px;display:block;">Halal</span></div>
+          </div>
+        </div>
+        <div style="position:relative;border:2px solid #1A1410;box-shadow:8px 8px 0 #1A1410;aspect-ratio:4/5;overflow:hidden;background:#E7D9bf;">
+          <img src="assets/food-breakfast.webp" alt="A Somali breakfast spread — sabayaad, eggs, honey and sambusa" style="width:100%;height:100%;object-fit:cover;" />
+          <span style="position:absolute;right:14px;top:14px;width:84px;height:84px;border-radius:50%;background:#F3E9D6;border:2px solid #1A1410;display:inline-flex;align-items:center;justify-content:center;"><img src="assets/brand/logo-transparent.png" alt="Maandeeq" style="width:76%;height:76%;object-fit:contain;" /></span>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:48px;">
+        <button onClick="{{ goMenu }}" style="display:inline-flex;align-items:center;gap:8px;padding:15px 26px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:4px 4px 0 #C0532B;" style-hover="box-shadow:0 0 0;transform:translate(2px,2px);">See the menu →</button>
+        <button onClick="{{ goReserve }}" style="display:inline-flex;align-items:center;padding:15px 26px;background:transparent;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">Book a table</button>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== REVIEWS PAGE ===================== -->
+  <sc-if value="{{ isReviews }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Reviews">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#1A1410;">Reviews</span></div>
+          <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Loved by the<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">neighbourhood.</em></h1>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:14px;border:2px solid #1A1410;padding:16px 22px;background:#FBF5E8;box-shadow:4px 4px 0 #1A1410;">
+          <span style="font-family:'Newsreader',serif;font-weight:600;font-size:54px;line-height:1;">4.9</span>
+          <div><div style="color:#C0532B;font-size:15px;letter-spacing:2px;">★★★★★</div><div style="color:#6b5d4b;font-size:12px;margin-top:4px;">412 reviews · Google & WhatsApp</div></div>
+        </div>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+          <figure style="margin:0;border:2px solid #1A1410;background:#FBF5E8;padding:30px 26px;display:flex;flex-direction:column;gap:16px;">
+            <div style="color:#C0532B;font-size:15px;letter-spacing:2px;">★★★★★</div>
+            <blockquote style="margin:0;font-family:'Newsreader',serif;font-size:21px;line-height:1.42;color:#1A1410;">“{{ r.q }}”</blockquote>
+            <figcaption style="margin-top:auto;font-size:13px;color:#6b5d4b;"><b style="color:#1A1410;font-weight:800;">{{ r.a }}</b> · via {{ r.src }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+      <div style="margin-top:48px;border:2px solid #1A1410;background:#1A1410;color:#F3E9D6;padding:clamp(30px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;">
+        <h3 style="font-weight:900;font-stretch:115%;font-size:clamp(22px,3vw,34px);margin:0;text-transform:uppercase;max-width:18ch;">Come taste what they're talking about.</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <button onClick="{{ goReserve }}" style="display:inline-flex;align-items:center;gap:8px;padding:15px 26px;background:#C0532B;color:#FBF5E8;border:2px solid #C0532B;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#9E3F1E;border-color:#9E3F1E;">Book a table →</button>
+          <button onClick="{{ goMenu }}" style="display:inline-flex;align-items:center;padding:15px 26px;background:transparent;color:#F3E9D6;border:2px solid rgba(243,233,214,.5);font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#F3E9D6;color:#1A1410;">View the menu</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== CONTACT PAGE ===================== -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Contact">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#1A1410;">Contact</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Find <em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">Maandeeq.</em></h1>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(30px,4vw,50px);" data-contact-grid="">
+        <div style="position:relative;border:2px solid #1A1410;min-height:300px;overflow:hidden;background:repeating-linear-gradient(0deg,transparent 0 38px,rgba(26,20,16,.08) 38px 40px),repeating-linear-gradient(90deg,transparent 0 38px,rgba(26,20,16,.08) 38px 40px),#E7D9bf;">
+          <span style="position:absolute;left:0;right:0;top:58%;height:6px;background:rgba(26,20,16,.14);"></span>
+          <span style="position:absolute;top:0;bottom:0;left:42%;width:6px;background:rgba(26,20,16,.14);"></span>
+          <span style="position:absolute;left:42%;top:58%;transform:translate(-50%,-100%);display:inline-flex;flex-direction:column;align-items:center;">
+            <span style="background:#C0532B;border:2px solid #1A1410;color:#FBF5E8;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;">★</span>
+            <span style="margin-top:8px;background:#1A1410;color:#F3E9D6;font-size:11px;font-weight:700;letter-spacing:.04em;padding:6px 12px;white-space:nowrap;">Maandeeq · 13B Anglesea Rd</span>
+          </span>
+          <a href="{{ mapsHref }}" target="_blank" style="position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:6px;background:#F3E9D6;border:2px solid #1A1410;padding:9px 15px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">Open in Maps →</a>
+        </div>
+        <div style="display:grid;gap:24px;align-content:start;">
+          <div><h4 style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#9E3F1E;margin:0 0 10px;">★ Address</h4><p style="margin:0;font-size:16px;line-height:1.6;">Maandeeq Restaurant<br />13B Anglesea Rd<br />London SE18 6EG</p><p style="margin:8px 0 0;font-size:13px;color:#6b5d4b;">{{ transit }}</p></div>
+          <div><h4 style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#9E3F1E;margin:0 0 10px;">★ Opening hours</h4>
+            <table style="width:100%;border-collapse:collapse;"><tbody>
+              <sc-for list="{{ hours }}" as="h" hint-placeholder-count="4">
+                <tr style="border-top:2px solid rgba(26,20,16,.12);"><td style="padding:9px 0;font-size:14.5px;color:#6b5d4b;">{{ h.0 }}</td><td style="padding:9px 0;font-size:14.5px;text-align:right;font-weight:700;">{{ h.1 }}</td></tr>
+              </sc-for>
+            </tbody></table>
+          </div>
+          <div><h4 style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#9E3F1E;margin:0 0 10px;">★ Contact</h4><p style="margin:0;font-size:16px;line-height:1.7;"><a href="{{ telHref }}" style="color:#1A1410;" style-hover="color:#C0532B;">{{ phone }}</a><br /><a href="{{ waHref }}" target="_blank" style="color:#1A1410;" style-hover="color:#C0532B;">WhatsApp · {{ phone }}</a><br /><a href="{{ mailHref }}" style="color:#1A1410;" style-hover="color:#C0532B;">{{ email }}</a></p></div>
+        </div>
+      </div>
+      <div style="margin-top:56px;border:2px solid #1A1410;background:#FBF5E8;box-shadow:8px 8px 0 #1A1410;padding:clamp(24px,3vw,40px);max-width:680px;">
+        <sc-if value="{{ contactNotDone }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ submitContact }}">
+          <h3 style="font-weight:900;font-stretch:115%;font-size:24px;margin:0 0 4px;text-transform:uppercase;">Send a message</h3>
+          <p style="color:#6b5d4b;font-size:13.5px;margin:0 0 22px;">Questions, feedback or a custom request — we'll get back to you.</p>
+          <div data-field-grid="" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div style="display:flex;flex-direction:column;gap:7px;"><label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Name</label><input type="text" placeholder="Your name" value="{{ contactName }}" onChange="{{ onContactName }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;" /></div>
+            <div style="display:flex;flex-direction:column;gap:7px;"><label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Email</label><input type="email" placeholder="you@email.com" value="{{ contactEmail }}" onChange="{{ onContactEmail }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;" style-focus="border-color:#C0532B;outline:none;" /></div>
+            <div style="display:flex;flex-direction:column;gap:7px;grid-column:1 / -1;"><label style="font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#6b5d4b;">Message</label><textarea rows="3" placeholder="How can we help?" value="{{ contactMsg }}" onChange="{{ onContactMsg }}" style="font-size:15px;padding:12px 13px;border:2px solid #1A1410;background:#F3E9D6;color:#1A1410;resize:vertical;" style-focus="border-color:#C0532B;outline:none;"></textarea></div>
+          </div>
+          <button type="submit" style="margin-top:18px;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#000;">Send message →</button>
+        </form>
+        </sc-if>
+        <sc-if value="{{ contactDone }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:14px 0;">
+          <span style="width:62px;height:62px;border:2px solid #1A1410;background:#C0532B;color:#FBF5E8;display:inline-flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:14px;">✓</span>
+          <h4 style="font-weight:900;font-stretch:115%;font-size:24px;margin:0 0 8px;text-transform:uppercase;">Message sent</h4>
+          <p style="color:#6b5d4b;font-size:14px;margin:0 auto;max-width:36ch;">Mahadsanid! We'll reply by email shortly. For anything urgent, WhatsApp us directly.</p>
+        </div>
+        </sc-if>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!-- ===================== FAQ PAGE ===================== -->
+  <sc-if value="{{ isFaq }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="FAQ">
+    <section style="border-bottom:2px solid #1A1410;background:#EBDFC6;">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(36px,5vw,72px) clamp(18px,4vw,46px);">
+        <div style="display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;"><span onClick="{{ goHome }}" style="cursor:pointer;">Home</span> / <span style="color:#1A1410;">FAQs</span></div>
+        <h1 style="font-weight:900;font-stretch:120%;font-size:clamp(40px,6.5vw,84px);line-height:0.92;letter-spacing:-.02em;margin:14px 0 0;text-transform:uppercase;">Questions,<br /><em style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-stretch:normal;text-transform:none;color:#C0532B;">answered.</em></h1>
+      </div>
+    </section>
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(18px,4vw,46px) clamp(56px,7vw,100px);">
+      <div style="display:grid;grid-template-columns:0.8fr 1.2fr;gap:clamp(30px,4vw,60px);align-items:start;" data-faq-grid="">
+        <div>
+          <p style="font-size:16px;line-height:1.6;color:#4A3F33;max-width:36ch;">Everything you need to know before you visit or order. Still stuck? Message us on WhatsApp — we reply fast.</p>
+          <button onClick="{{ goContact }}" style="margin-top:22px;display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:transparent;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;color:#1A1410;" style-hover="background:#1A1410;color:#F3E9D6;">Contact us →</button>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;border-top:2px solid #1A1410;">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+            <li style="border-bottom:2px solid #1A1410;">
+              <button onClick="{{ f.onToggle }}" style="width:100%;border:0;background:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 2px;text-align:left;font-weight:800;font-size:clamp(17px,2vw,22px);cursor:pointer;color:#1A1410;">{{ f.q }}<span style="color:#C0532B;font-size:22px;flex-shrink:0;">{{ f.sign }}</span></button>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:0;padding:0 2px 24px;color:#6b5d4b;font-size:15px;line-height:1.6;max-width:60ch;">{{ f.a }}</p>
+              </sc-if>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <!--PAGES-->
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="border-top:2px solid #1A1410;background:#1A1410;color:#F3E9D6;">
+    <div style="max-width:1280px;margin:0 auto;padding:clamp(48px,6vw,84px) clamp(18px,4vw,46px) 28px;">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;padding-bottom:clamp(36px,5vw,52px);border-bottom:2px solid rgba(243,233,214,.25);" data-news="">
+        <div>
+          <span style="font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#E8B96a;">★ Maandeeq VIP</span>
+          <h3 style="font-weight:900;font-stretch:115%;font-size:clamp(24px,3.2vw,40px);line-height:1;margin:12px 0 0;text-transform:uppercase;">Weekend specials,<br />Ramadan menus & platter offers.</h3>
+        </div>
+        <sc-if value="{{ newsOk }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:14px;color:#E8B96a;font-weight:700;">✓ You're on the list. Mahadsanid!</span>
+        </sc-if>
+        <sc-if value="{{ newsNotOk }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submitNews }}" style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input type="email" placeholder="you@email.com" value="{{ news }}" onChange="{{ onNews }}" aria-label="Email" style="font-size:15px;padding:13px 16px;border:2px solid #F3E9D6;background:transparent;color:#F3E9D6;min-width:220px;" />
+            <button type="submit" style="padding:13px 20px;background:#C0532B;color:#FBF5E8;border:2px solid #C0532B;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;" style-hover="background:#9E3F1E;">Join →</button>
+          </form>
+        </sc-if>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:30px;padding-block:clamp(36px,5vw,52px);" data-foot-cols="">
+        <div>
+          <img src="assets/brand/logo-transparent.png" alt="Maandeeq" style="width:60px;height:60px;border-radius:50%;background:#F3E9D6;" />
+          <p style="color:rgba(243,233,214,.65);font-size:14px;line-height:1.6;max-width:32ch;margin:16px 0 0;">Authentic Somali food — family platters, takeaway & catering in the heart of Woolwich.</p>
+        </div>
+        <div>
+          <h5 style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#E8B96a;margin:0 0 14px;">Explore</h5>
+          <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+            <a onClick="{{ n.onClick }}" style="display:block;font-size:14px;color:rgba(243,233,214,.8);margin-bottom:9px;cursor:pointer;" style-hover="color:#E8B96a;">{{ n.label }}</a>
+          </sc-for>
+        </div>
+        <div>
+          <h5 style="font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#E8B96a;margin:0 0 14px;">Find us</h5>
+          <a href="{{ mapsHref }}" target="_blank" style="display:block;font-size:14px;color:rgba(243,233,214,.8);margin-bottom:9px;" style-hover="color:#E8B96a;">13B Anglesea Rd, London SE18 6EG</a>
+          <a href="{{ telHref }}" style="display:block;font-size:14px;color:rgba(243,233,214,.8);margin-bottom:9px;" style-hover="color:#E8B96a;">+44 7958 139 312</a>
+          <a href="{{ waHref }}" target="_blank" style="display:block;font-size:14px;color:rgba(243,233,214,.8);margin-bottom:9px;" style-hover="color:#E8B96a;">WhatsApp</a>
+          <a href="{{ mailHref }}" style="display:block;font-size:14px;color:rgba(243,233,214,.8);margin-bottom:9px;" style-hover="color:#E8B96a;">restaurantmaandeeq@gmail.com</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:24px;border-top:2px solid rgba(243,233,214,.25);font-size:11.5px;letter-spacing:.04em;color:rgba(243,233,214,.6);">
+        <span>© {{ year }} Maandeeq Restaurant · Woolwich</span>
+        <span>Halal · Family-run · Made with care</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== CART DRAWER ===================== -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:90;">
+    <div onClick="{{ closeCart }}" style="position:absolute;inset:0;background:rgba(26,20,16,.5);"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:min(440px,92vw);background:#F3E9D6;border-left:2px solid #1A1410;display:flex;flex-direction:column;box-shadow:-12px 0 0 rgba(26,20,16,.12);">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:2px solid #1A1410;">
+        <h3 style="font-weight:900;font-stretch:115%;font-size:22px;margin:0;text-transform:uppercase;">Your Basket</h3>
+        <button onClick="{{ closeCart }}" style="width:40px;height:40px;border:2px solid #1A1410;background:transparent;font-size:18px;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">✕</button>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:6px 24px;">
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center;padding:64px 20px;color:#6b5d4b;">
+            <div style="font-size:38px;">🧺</div>
+            <p style="margin:12px 0 0;font-size:14px;">Your basket is empty. Add a few dishes to get started.</p>
+            <button onClick="{{ closeAndMenu }}" style="margin-top:18px;padding:12px 20px;background:#1A1410;color:#F3E9D6;border:2px solid #1A1410;font-weight:800;font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Browse the menu</button>
+          </div>
+        </sc-if>
+        <sc-for list="{{ cartLines }}" as="c" hint-placeholder-count="0">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:16px 0;border-bottom:2px solid rgba(26,20,16,.12);align-items:center;">
+            <div><div style="font-weight:800;font-size:15px;">{{ c.name }}</div><div style="font-size:12.5px;color:#6b5d4b;margin-top:2px;">{{ c.price }} each</div></div>
+            <div style="font-family:'Newsreader',serif;font-weight:600;font-size:16px;text-align:right;">{{ c.line }}</div>
+            <div style="grid-column:1 / -1;display:inline-flex;align-items:center;border:2px solid #1A1410;width:max-content;">
+              <button onClick="{{ c.onDec }}" style="width:34px;height:34px;border:0;background:transparent;font-size:18px;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">−</button>
+              <span style="min-width:30px;text-align:center;font-weight:800;font-size:14px;">{{ c.qty }}</span>
+              <button onClick="{{ c.onInc }}" style="width:34px;height:34px;border:0;background:transparent;font-size:18px;cursor:pointer;" style-hover="background:#1A1410;color:#F3E9D6;">＋</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ cartNotEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:2px solid #1A1410;padding:20px 24px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px;">
+          <span style="font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#6b5d4b;">Total</span>
+          <strong style="font-family:'Newsreader',serif;font-weight:600;font-size:30px;">{{ cartTotal }}</strong>
+        </div>
+        <button onClick="{{ checkout }}" style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:4px 4px 0 #1A1410;" style-hover="background:#9E3F1E;">Order on WhatsApp →</button>
+        <p style="font-size:12px;color:#6b5d4b;text-align:center;margin:12px 0 0;">We'll confirm your order and timing on WhatsApp.</p>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===================== MOBILE SHEET ===================== -->
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:0;z-index:80;">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;background:rgba(26,20,16,.5);"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:min(420px,90vw);background:#F3E9D6;border-left:2px solid #1A1410;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:2px solid #1A1410;">
+        <span style="font-weight:900;font-stretch:115%;font-size:20px;text-transform:uppercase;">Menu</span>
+        <button onClick="{{ closeSheet }}" style="width:40px;height:40px;border:2px solid #1A1410;background:transparent;font-size:18px;cursor:pointer;">✕</button>
+      </div>
+      <div style="padding:8px 24px;display:flex;flex-direction:column;overflow-y:auto;">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a onClick="{{ n.onClick }}" style="display:flex;align-items:baseline;gap:12px;font-family:'Newsreader',serif;font-size:28px;padding:13px 0;border-bottom:2px solid rgba(26,20,16,.12);cursor:pointer;color:{{ n.color }};">{{ n.label }}</a>
+        </sc-for>
+      </div>
+      <div style="margin-top:auto;padding:20px 24px;display:grid;gap:10px;">
+        <button onClick="{{ goReserve }}" style="padding:14px;background:#C0532B;color:#FBF5E8;border:2px solid #1A1410;font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;">Book a table</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showStrip&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;menuStartCategory&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;main-course&quot;,&quot;options&quot;:[&quot;main-course&quot;,&quot;platters&quot;,&quot;appetizers&quot;,&quot;desserts&quot;,&quot;drinks&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.MENU = [
+      { id:"main-course", title:"Main Course", note:"Served with Somali rice (Bariice), pasta (Baasto), Ugali (Soor) & salad.", items:[
+        { name:"Maandeeq Special — Haniid Lamb", desc:"Slow-cooked lamb shank or shoulder, rich Somali spices.", price:"12.99", popular:true },
+        { name:"Chicken Steak", desc:"Marinated chicken grilled with East African spices.", price:"8.99" },
+        { name:"Salmon Fish", desc:"Salmon fillet seasoned the Somali way.", price:"10.49" },
+        { name:"Beef Suqaar", desc:"Tender beef with peppers, onions and potatoes.", price:"7.99", popular:true },
+        { name:"Maraghe (Bean Stew)", desc:"Red kidney beans, spinach and spices with vegetables.", price:"5.99", veg:true },
+      ]},
+      { id:"platters", title:"Family Platters", note:"Served with Bariice, Baasto or Ugali & salad. Made for the table.", items:[
+        { name:"1–2 People Platter", desc:"Lamb shank or shoulder, chicken steak, beef suqaar.", price:"29.99" },
+        { name:"2–3 People Platter", desc:"Lamb ×2, chicken steak, beef suqaar.", price:"38.99" },
+        { name:"4–5 People Platter", desc:"Lamb ×3, chicken steak, beef suqaar.", price:"49.99", popular:true },
+        { name:"Mega Fusion Platter", desc:"Lamb ×5, chicken steak ×3, beef suqaar. For everyone.", price:"79.99" },
+      ]},
+      { id:"appetizers", title:"Appetizers", note:"Perfect to share, with honey or savoury dishes.", items:[
+        { name:"Sambusa", desc:"Crispy pastry with spiced meat and onions.", price:"0.99", popular:true },
+        { name:"Sabayaad (Chapati)", desc:"Flaky, golden flatbread — portion of three.", price:"0.99" },
+        { name:"Kimis & Mayai (Malawaax)", desc:"Soft kimis flatbread with eggs — portion of three.", price:"1.49" },
+        { name:"Chipsi Mayai", desc:"Traditional fries folded into seasoned eggs.", price:"3.99" },
+      ]},
+      { id:"desserts", title:"Desserts", note:"", items:[
+        { name:"Milk Cake", desc:"Oreo, Lotus Biscoff, Ferrero Rocher & Kinder Bueno.", price:"5.49", popular:true },
+        { name:"Somali Cake", desc:"Soft golden slice with a hint of sweetness.", price:"1.49" },
+        { name:"Milk Shake", desc:"Homemade — Oreo or strawberry.", price:"3.49" },
+      ]},
+      { id:"drinks", title:"Drinks & Tea", note:"", items:[
+        { name:"Maandeeq Special Tea (Shaah)", desc:"Aromatic spiced black tea, steeped slow.", price:"1.49", popular:true },
+        { name:"Somali Coffee (Qaxwo)", desc:"Cardamom, cinnamon, ginger and cloves.", price:"1.99" },
+        { name:"Mango Lassi", desc:"Creamy yogurt blended with ripe mango.", price:"2.99" },
+        { name:"Mojito", desc:"Classic, Blue Fusion, Strawberry or Piña Colada.", price:"4.49" },
+        { name:"Fresh Juices", desc:"Mango, guava or pineapple, on the rocks.", price:"1.99" },
+        { name:"Soft Drinks", desc:"7Up, Fanta Pineapple, Diet Coke, Shanni & Miranda.", price:"0.99" },
+      ]},
+    ];
+    this.SITE = { phone:"+44 7958 139 312", phoneRaw:"+447958139312", whatsappRaw:"447958139312", email:"restaurantmaandeeq@gmail.com", address:"13B Anglesea Rd, Woolwich, London SE18 6EG", maps:"https://maps.google.com/?q=Maandeeq+Restaurant+13B+Anglesea+Rd+London+SE18+6EG", transit:"4-min walk from Woolwich Arsenal (Rail & DLR) and Woolwich (Elizabeth line).", hours:[["Mon – Thu","8:30am – 11:00pm"],["Fri","8:30am – 11:30pm"],["Sat","9:00am – 11:30pm"],["Sun","9:00am – 10:30pm"]] };
+    this.REVIEWS = [
+      { q:"The lamb shank fell off the bone and the shaah was just like my hooyo makes it. New family spot.", a:"Fatima H.", src:"Google" },
+      { q:"Ordered the 4–5 platter for my brother's birthday — fed eight people and we still had leftovers.", a:"Yusuf A.", src:"WhatsApp" },
+      { q:"Best sambusa in SE London. Crispy, properly spiced. And the tea is something else.", a:"Idris M.", src:"Instagram" },
+      { q:"Catered our nikah for 90 guests. On time, beautiful, everyone went back for seconds.", a:"Hodan & Mohamed", src:"Catering" },
+    ];
+    this.FAQS = [
+      ["Is everything halal?","Yes — every dish is 100% halal, sourced from verified London suppliers."],
+      ["Do you deliver?","We offer pickup and short-distance delivery across Woolwich. Larger catering orders can travel further — just ask on WhatsApp."],
+      ["Can I book a large table?","Tables up to 8 are bookable here. For 10+ please use catering so we can pre-prep portions."],
+      ["How does ordering work?","Add dishes to your basket, then tap Order on WhatsApp — it pre-fills a message you can edit before sending."],
+      ["Is there parking?","Street parking is nearby. We're a short walk from Woolwich Arsenal station and the Elizabeth Line."],
+    ];
+    this.NAVDEF = [
+      { label:"Home", page:"home" },{ label:"Menu", page:"menu" },{ label:"Order", page:"order" },
+      { label:"Reserve", page:"reserve" },{ label:"Catering", page:"catering" },{ label:"About", page:"about" },
+      { label:"Reviews", page:"reviews" },{ label:"Contact", page:"contact" },{ label:"FAQ", page:"faq" },
+    ];
+    this.priceMap = {};
+    this.MENU.forEach(c => c.items.forEach(i => { this.priceMap[i.name] = parseFloat(i.price); }));
+    const startCat = this.props.menuStartCategory;
+    const validStart = startCat && this.MENU.find(c => c.id === startCat) ? startCat : this.MENU[0].id;
+    this.state = {
+      page:"home", cart:{}, drawer:false, sheet:false,
+      menuCat:validStart, menuFilter:"all", faqOpen:0,
+      res:{ name:"", phone:"", date:"", time:"", party:"2", notes:"" }, resErr:{}, resDone:false,
+      news:"", newsOk:false,
+      contact:{ name:"", email:"", message:"" }, contactDone:false,
+    };
+  }
+
+  go(page){ this.setState({ page, sheet:false, drawer:false }); try{ window.scrollTo(0,0); }catch(e){} }
+  addItem(name, d){ d = d || 1; this.setState(s => { const c = {...s.cart}; const n = (c[name]||0) + d; if(n <= 0) delete c[name]; else c[name] = n; return { cart:c }; }); }
+  cartCount(){ return Object.values(this.state.cart).reduce((a,b)=>a+b,0); }
+  cartTotal(){ return Object.entries(this.state.cart).reduce((a,[k,q])=>a + (this.priceMap[k]||0)*q, 0); }
+  money(n){ return "£" + Number(n).toFixed(2); }
+
+  checkout(){
+    const lines = Object.entries(this.state.cart).map(([k,q]) => q + "× " + k).join("\n");
+    const msg = "Hi Maandeeq! I'd like to order:\n\n" + lines + "\n\nTotal: " + this.money(this.cartTotal()) + "\n\nName:\nPickup or delivery:";
+    try{ window.open("https://wa.me/" + this.SITE.whatsappRaw + "?text=" + encodeURIComponent(msg), "_blank"); }catch(e){}
+  }
+  cateringWA(){
+    const msg = "Hi Maandeeq! I'd like a catering quote.\n\nOccasion:\nDate:\nHeadcount:\nPostcode:";
+    try{ window.open("https://wa.me/" + this.SITE.whatsappRaw + "?text=" + encodeURIComponent(msg), "_blank"); }catch(e){}
+  }
+
+  setRes(k, v){ this.setState(s => ({ res:{...s.res, [k]:v}, resErr:{...s.resErr, [k]:""} })); }
+  submitRes(e){
+    if(e && e.preventDefault) e.preventDefault();
+    const f = this.state.res, next = {};
+    if(!f.name.trim()) next.name = "Please add your name";
+    if(!/[0-9]{6,}/.test(f.phone.replace(/\s/g,""))) next.phone = "Add a valid phone number";
+    if(!f.date) next.date = "Pick a date";
+    if(!f.time) next.time = "Pick a time";
+    this.setState({ resErr:next });
+    if(Object.keys(next).length === 0) this.setState({ resDone:true });
+  }
+  resetRes(){ this.setState({ resDone:false, res:{ name:"", phone:"", date:"", time:"", party:"2", notes:"" }, resErr:{} }); }
+
+  setContact(k, v){ this.setState(s => ({ contact:{...s.contact, [k]:v} })); }
+  submitContact(e){ if(e && e.preventDefault) e.preventDefault(); if(this.state.contact.name.trim() && /.+@.+\..+/.test(this.state.contact.email)) this.setState({ contactDone:true }); }
+
+  submitNews(e){ if(e && e.preventDefault) e.preventDefault(); if(/.+@.+\..+/.test(this.state.news)) this.setState({ newsOk:true }); }
+
+  renderVals(){
+    const st = this.state;
+    const today = new Date().toISOString().split("T")[0];
+    const navColor = (page) => st.page === page ? "#1A1410" : "#4A3F33";
+    const nav = this.NAVDEF.map(n => ({
+      label:n.label,
+      onClick:() => this.go(n.page),
+      current:st.page === n.page,
+      color:navColor(n.page),
+      underline:st.page === n.page ? "#C0532B" : "transparent",
+    }));
+
+    const cart = st.cart;
+    const mkItem = (it, idx) => {
+      const qty = cart[it.name] || 0;
+      return { name:it.name, desc:it.desc, priceLabel:this.money(this.priceMap[it.name]), rawPrice:it.price,
+        no:String(idx+1).padStart(2,"0"), qty, hasQty:qty>0, addOnly:qty===0, popular:!!it.popular, veg:!!it.veg,
+        onAdd:() => this.addItem(it.name,1), onInc:() => this.addItem(it.name,1), onDec:() => this.addItem(it.name,-1) };
+    };
+
+    // menu page
+    const cat = this.MENU.find(c => c.id === st.menuCat) || this.MENU[0];
+    const filtered = cat.items.filter(i => st.menuFilter === "popular" ? i.popular : st.menuFilter === "veg" ? i.veg : true);
+    const menuItems = filtered.map((it,i) => mkItem(it,i));
+    const menuTabs = this.MENU.map(c => ({ id:c.id, title:c.title, on:c.id === st.menuCat,
+      onClick:() => this.setState({ menuCat:c.id, menuFilter:"all" }),
+      bg:c.id === st.menuCat ? "#1A1410" : "transparent", color:c.id === st.menuCat ? "#F3E9D6" : "#1A1410" }));
+    const mkFilter = (key,label) => ({ label, on:st.menuFilter===key, onClick:() => this.setState({ menuFilter:key }),
+      bg:st.menuFilter===key ? "#1A1410":"transparent", color:st.menuFilter===key ? "#F3E9D6":"#1A1410" });
+
+    // order page — all groups
+    const menuGroups = this.MENU.map(c => ({ id:c.id, title:c.title, note:c.note, items:c.items.map((it,i)=>mkItem(it,i)) }));
+
+    // signatures
+    const sigDefs = [
+      { name:"Haniid Lamb", key:"Maandeeq Special — Haniid Lamb", desc:"Slow-cooked shank, rich Somali spice.", img:"assets/food-platter.webp", crop:"center 35%" },
+      { name:"Beef Suqaar", key:"Beef Suqaar", desc:"Beef, peppers, onions, potatoes.", img:"assets/food-suqaar.webp", crop:"center 55%" },
+      { name:"Sabayaad Breakfast", key:"Kimis & Mayai (Malawaax)", desc:"Flaky bread, eggs, honey, sambusa.", img:"assets/food-breakfast.webp", crop:"center 50%" },
+      { name:"Somali Tea", key:"Maandeeq Special Tea (Shaah)", desc:"Aromatic spiced black tea.", img:"assets/food-drinks.webp", crop:"center 45%" },
+    ];
+    const signatures = sigDefs.map((s,i) => {
+      const added = (cart[s.key]||0) > 0;
+      return { name:s.name, desc:s.desc, img:s.img, crop:s.crop, no:String(i+1).padStart(2,"0"),
+        priceLabel:this.money(this.priceMap[s.key]||0), onAdd:() => this.addItem(s.key,1),
+        addLabel:added ? "✓ Added" : "＋ Add to basket", addBg:added ? "#C0532B":"transparent", addColor:added ? "#FBF5E8":"#1A1410" };
+    });
+
+    // platters
+    const pcat = this.MENU.find(c => c.id === "platters");
+    const platters = pcat.items.map((p,i) => ({ name:p.name, desc:p.desc, no:String(i+1).padStart(2,"0"), priceLabel:this.money(this.priceMap[p.name]) }));
+
+    // cart lines
+    const cartLines = Object.entries(cart).map(([name,qty]) => ({ name, qty,
+      price:this.money(this.priceMap[name]||0), line:this.money((this.priceMap[name]||0)*qty),
+      onInc:() => this.addItem(name,1), onDec:() => this.addItem(name,-1) }));
+
+    // reservation
+    const res = st.res;
+    const partyChips = ["1","2","3","4","5","6","8"].map(n => ({ label:n === "8" ? "8+" : n, on:res.party===n,
+      onClick:() => this.setRes("party",n), bg:res.party===n ? "#1A1410":"transparent", color:res.party===n ? "#F3E9D6":"#1A1410" }));
+    const times = ["12:00","13:00","14:00","18:00","19:00","20:00","21:00"];
+
+    // faqs
+    const faqs = this.FAQS.map(([q,a],i) => ({ q, a, open:st.faqOpen===i, sign:st.faqOpen===i ? "–" : "＋",
+      onToggle:() => this.setState(s => ({ faqOpen:s.faqOpen===i ? -1 : i })) }));
+
+    return {
+      // chrome
+      nav, year:new Date().getFullYear(),
+      cartCount:this.cartCount(), cartTotal:this.money(this.cartTotal()),
+      openCart:() => this.setState({ drawer:true }), closeCart:() => this.setState({ drawer:false }),
+      openSheet:() => this.setState({ sheet:true }), closeSheet:() => this.setState({ sheet:false }),
+      drawerOpen:st.drawer, sheetOpen:st.sheet,
+      cartEmpty:this.cartCount()===0, cartNotEmpty:this.cartCount()>0, cartLines,
+      closeAndMenu:() => { this.setState({ drawer:false }); this.go("menu"); },
+      checkout:() => this.checkout(),
+      goHome:() => this.go("home"), goMenu:() => this.go("menu"), goOrder:() => this.go("order"),
+      goReserve:() => this.go("reserve"), goCatering:() => this.go("catering"), goAbout:() => this.go("about"),
+      goContact:() => this.go("contact"), goReviews:() => this.go("reviews"), goFaq:() => this.go("faq"),
+      // page flags
+      isHome:st.page==="home", isMenu:st.page==="menu", isOrder:st.page==="order", isReserve:st.page==="reserve",
+      isCatering:st.page==="catering", isAbout:st.page==="about", isContact:st.page==="contact",
+      isReviews:st.page==="reviews", isFaq:st.page==="faq",
+      // tweaks
+      showStrip:this.props.showStrip !== false,
+      // home content
+      stripWords:["Bariis","Suqaar","Sambuus","Sabayaad","Haniid","Shaah","Malawaax","Maraq","Bariis","Suqaar","Sambuus","Sabayaad","Haniid","Shaah","Malawaax","Maraq"],
+      signatures, sig0:signatures[0], sig1:signatures[1], sig2:signatures[2], sig3:signatures[3],
+      platters, addBigPlatter:() => this.addItem("4–5 People Platter",1),
+      cateringMetrics:[{ big:"10–300", label:"Guests" },{ big:"£18", label:"From / head" },{ big:"7 days", label:"Notice" }],
+      cateringOccasions:["Nikkah","Walimah","Aqiqah","Iftar","Corporate","Baby shower"],
+      cateringWA:() => this.cateringWA(),
+      reviews:this.REVIEWS,
+      // menu
+      menuItems, menuTabs, menuNote:cat.note, menuCatTitle:cat.title,
+      filterAll:mkFilter("all","All"), filterPopular:mkFilter("popular","★ Most loved"), filterVeg:mkFilter("veg","Veggie"),
+      // order
+      menuGroups,
+      // reservation
+      resName:res.name, resPhone:res.phone, resDate:res.date, resTime:res.time, resNotes:res.notes,
+      onResName:(e)=>this.setRes("name",e.target.value), onResPhone:(e)=>this.setRes("phone",e.target.value),
+      onResDate:(e)=>this.setRes("date",e.target.value), onResTime:(e)=>this.setRes("time",e.target.value),
+      onResNotes:(e)=>this.setRes("notes",e.target.value),
+      errName:st.resErr.name, errPhone:st.resErr.phone, errDate:st.resErr.date, errTime:st.resErr.time,
+      hasErrName:!!st.resErr.name, hasErrPhone:!!st.resErr.phone, hasErrDate:!!st.resErr.date, hasErrTime:!!st.resErr.time,
+      partyChips, times, today, submitRes:(e)=>this.submitRes(e), resDone:st.resDone, resNotDone:!st.resDone,
+      resFirstName:(res.name.split(" ")[0]||"there"), resParty:res.party, resetRes:()=>this.resetRes(),
+      // contact
+      contactName:st.contact.name, contactEmail:st.contact.email, contactMsg:st.contact.message,
+      onContactName:(e)=>this.setContact("name",e.target.value), onContactEmail:(e)=>this.setContact("email",e.target.value),
+      onContactMsg:(e)=>this.setContact("message",e.target.value),
+      submitContact:(e)=>this.submitContact(e), contactDone:st.contact && st.contactDone, contactNotDone:!st.contactDone,
+      hours:this.SITE.hours, transit:this.SITE.transit,
+      // faq
+      faqs,
+      // newsletter
+      news:st.news, onNews:(e)=>this.setState({ news:e.target.value }), submitNews:(e)=>this.submitNews(e),
+      newsOk:st.newsOk, newsNotOk:!st.newsOk,
+      // links
+      mapsHref:this.SITE.maps, telHref:"tel:"+this.SITE.phoneRaw, waHref:"https://wa.me/"+this.SITE.whatsappRaw, mailHref:"mailto:"+this.SITE.email,
+      phone:this.SITE.phone, email:this.SITE.email,
+    };
+  }
+}
+</script>
+</body>
+</html>
