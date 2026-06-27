@@ -907,7 +907,20 @@ class Component extends DCLogic {
     if(!f.date) next.date = "Pick a date";
     if(!f.time) next.time = "Pick a time";
     this.setState({ resErr:next });
-    if(Object.keys(next).length === 0) this.setState({ resDone:true });
+    if(Object.keys(next).length) return;
+    const payload = { party:f.party, date:f.date, time:f.time, name:f.name.trim(), phone:f.phone.trim(), notes:f.notes };
+    if(window.MasulForms && window.MasulForms.submit){
+      this.setState({ resSending:true });
+      window.MasulForms.submit("booking", payload).then((r)=>{
+        if(r && r.ok){ this.setState({ resDone:true, resSending:false }); }
+        else { this.setState({ resSending:false, resErr:{ phone:(r && r.errors && r.errors.join(". ")) || "Sorry — we couldn't send that. Please call us." } }); }
+      }).catch(()=>{ this.setState({ resSending:false, resErr:{ phone:"Network error — please try again." } }); });
+    } else {
+      // Widget not loaded — fall back to WhatsApp so the booking still reaches us.
+      const msg = "Hi Maandeeq! Table request:\n\nName: "+f.name+"\nPhone: "+f.phone+"\nParty: "+f.party+"\nDate: "+f.date+"\nTime: "+f.time+"\nNotes: "+(f.notes||"—");
+      try{ window.open("https://wa.me/"+this.SITE.whatsappRaw+"?text="+encodeURIComponent(msg), "_blank"); }catch(e){}
+      this.setState({ resDone:true });
+    }
   }
   resetRes(){ this.setState({ resDone:false, res:{ name:"", phone:"", date:"", time:"", party:"2", notes:"" }, resErr:{} }); }
 
